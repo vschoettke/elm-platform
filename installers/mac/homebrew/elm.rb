@@ -8,19 +8,12 @@ class Elm < Formula
   depends_on "cabal-install" => :build
 
   def install
+    ENV.deparallelize
+
+
     system "runhaskell", "BuildFromSource.hs", version
 
-    bin.install Dir["Elm-Platform/#{version}/bin/*"]
-  end
-
-  def caveats
-    <<-EOS.undent
-      Grab a coffee! This can take a long time to install.
-
-      Note that installing elm via Homebrew will also install the latest version
-      of GHC via Homebrew. If you do not want the latest version of GHC installed,
-      please see http://elm-lang.org for alternative ways to install Elm.
-    EOS
+    bin.install Dir[buildpath/"Elm-Platform/#{version}/bin/*"]
   end
 
   test do
