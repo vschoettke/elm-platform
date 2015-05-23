@@ -1,20 +1,26 @@
 class Elm < Formula
   homepage "http://elm-lang.org"
-  url "https://github.com/kevva/elm-bin/raw/v1.4.1/vendor/osx/elm-platform-osx.tar.gz"
-  sha256 "ec94047ca573e66aed5e6ac21ab8656b203bf9e3262f0819dfb35780c3700623"
-  version "0.15"
+  sha256 "b1c349db1a576fff9b997c0134ebf698d03544329ec9783d382a0a70fbc19e0e"
+  url "https://raw.githubusercontent.com/elm-lang/elm-platform/0.15/installers/BuildFromSource.hs",
+    :nounzip => true
+
+  depends_on "ghc" => :build
+  depends_on "cabal-install" => :build
 
   def install
-    [
-      "elm",
-      "elm-doc",
-      "elm-make",
-      "elm-package",
-      "elm-reactor",
-      "elm-repl"
-    ].each do |binaryFile|
-      bin.install binaryFile
-    end
+    system "runhaskell", "BuildFromSource.hs", version
+
+    bin.install Dir["Elm-Platform/#{version}/bin/*"]
+  end
+
+  def caveats
+    <<-EOS.undent
+      Grab a coffee! This can take a long time to install.
+
+      Note that installing elm via Homebrew will also install the latest version
+      of GHC via Homebrew. If you do not want the latest version of GHC installed,
+      please see http://elm-lang.org for alternative ways to install Elm.
+    EOS
   end
 
   test do
