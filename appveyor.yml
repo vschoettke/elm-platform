@@ -13,25 +13,14 @@ matrix:
   fast_finish: true
 
 install:
-  - ps: Update-NodeJsInstallation (Get-NodeJsLatestBuild $env:nodejs_version) $env:Platform
-  - node --version
-  - npm --version
-  - cd c:\projects\elm-platform
-  - curl -s -ocabal.tar.gz https://www.haskell.org/cabal/release/cabal-install-1.22.0.0/cabal-1.22.0.0-i386-unknown-mingw32.tar.gz
-  - 7z x cabal.tar.gz > nul
-  - 7z x cabal.tar -ocabal_installation > nul
-  - cd cabal_installation
-  - ren cabal-1.22.0.0-i386-unknown-mingw32.exe cabal.exe
-  - set PATH=%PATH%;c:\projects\elm-platform\cabal_installation
-  - cd c:\projects\elm-platform
-  - curl -s -oghc.tar.xz -L https://www.haskell.org/ghc/dist/7.10.2/ghc-7.10.2-i386-unknown-mingw32.tar.xz
-  - 7z x ghc.tar.xz > nul
-  - 7z x ghc.tar > nul
-  - set PATH=%PATH%;c:\projects\elm-platform\ghc-7.10.2\bin
+  - choco install haskellplatform -version 7.10.2.0 -y
   - ghc --version
   - runhaskell --version
   - cabal --version
   - cabal update --verbose
+  - ps: Update-NodeJsInstallation (Get-NodeJsLatestBuild $env:nodejs_version) $env:Platform
+  - node --version
+  - npm --version
 
 test_script:
   - cd c:\projects\elm-platform\installers
