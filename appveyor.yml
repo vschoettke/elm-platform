@@ -23,7 +23,6 @@ install:
   - cd cabal_installation
   - ren cabal-1.22.0.0-i386-unknown-mingw32.exe cabal.exe
   - set PATH=%PATH%;c:\projects\elm-platform\cabal_installation
-  - cabal --version
   - cd c:\projects\elm-platform
   - curl -s -oghc.tar.xz -L https://www.haskell.org/ghc/dist/7.10.2/ghc-7.10.2-i386-unknown-mingw32.tar.xz
   - 7z x ghc.tar.xz > nul
@@ -31,6 +30,8 @@ install:
   - set PATH=%PATH%;c:\projects\elm-platform\ghc-7.10.2\bin
   - ghc --version
   - runhaskell --version
+  - cabal --version
+  - cabal update
 
 test_script:
   - cd c:\projects\elm-platform\installers
