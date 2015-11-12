@@ -1,3 +1,4 @@
+
 clone_folder: c:\projects\elm-platform
 
 environment:
@@ -13,7 +14,14 @@ matrix:
   fast_finish: true
 
 install:
-  - choco install haskellplatform -version 7.10.2.0 -y -forcex86
+  - ps: Install-Product node $env:nodejs_version
+  - node --version
+  - npm --version
+  - cd c:\projects\elm-platform
+  - curl -s -oinstall_haskell.exe https://haskell.org/platform/download/7.10.2/HaskellPlatform-7.10.2-a-i386-setup.exe
+  - install_haskell
+  - dir
+  - set PATH=%PATH%;c:\projects\elm-platform\haskell
   - ghc --version
   - runhaskell --version
   - cabal --version
