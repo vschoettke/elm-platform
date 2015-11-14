@@ -24,10 +24,12 @@ install:
   # The ugly echo "" hack is to avoid complaints about 0 being an invalid file
   # descriptor - see https://github.com/commercialhaskell/stack/blob/e1605b888953124737ecff1dae3c790fd2a537c6/appveyor.yml
   - echo "" | stack install cabal-install
-  - ghc --version
-  - runhaskell --version
+  - stack path
   - cabal --version
   - cabal update --verbose
+  - ghc --version
+  - runhaskell --version
+  - ps: Install-Product node $env:nodejs_version
   - ps: Update-NodeJsInstallation (Get-NodeJsLatestBuild $env:nodejs_version) $env:Platform
   - node --version
   - npm --version
