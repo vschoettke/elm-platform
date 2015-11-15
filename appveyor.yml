@@ -45,7 +45,7 @@ install:
   - node --version
   - npm --version
   - cd c:\projects\elm-platform\installers
-  - stack runghc BuildFromSource.hs 0.15.1
+  - runhaskell BuildFromSource.hs 0.15.1
 
 test_script:
   - cd Elm-Platform\*
