@@ -60,6 +60,14 @@ script:
   - node_modules/.bin/elm reactor --help
   - runhaskell BuildFromSource.hs $ELM_VERSION
   - cd Elm-Platform/*
+  - .cabal-sandbox/bin/elm-make --help
+  - .cabal-sandbox/bin/elm-repl --help
+  - .cabal-sandbox/bin/elm-package install --help
+  - .cabal-sandbox/bin/elm-reactor --help
+  - .cabal-sandbox/bin/elm make --help
+  - .cabal-sandbox/bin/elm repl --help
+  - .cabal-sandbox/bin/elm package install --help
+  - .cabal-sandbox/bin/elm reactor --help
   - mkdir dist_binaries
   - cp .cabal-sandbox/bin/elm* dist_binaries
   - tar cvzf binaries.tar.gz dist_binaries
