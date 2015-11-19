@@ -4,14 +4,9 @@ clone_folder: c:\projects\elm-platform
 environment:
   matrix:
   - nodejs_version: "5.0"
+    ELM_VERSION: "0.15.1"
   - nodejs_version: "0.10"
-
-platform:
-  - x86
-  - x64
-
-matrix:
-  fast_finish: true
+    ELM_VERSION: "0.15.1"
 
 platform:
   - x86
@@ -24,6 +19,10 @@ install:
   - node --version
   - npm --version
   - cd c:\projects\elm-platform
+  - mkdir build_from_source
+  - copy versions\%ELM_VERSION%\stack.yaml build_from_source
+  - cd build_from_source
+  - dir
   - ps: >-
       If ($env:Platform -Match "x86") {
         $env:STACK_INSTALLER="x86_64"
@@ -36,11 +35,8 @@ install:
   - stack setup > nul
   # The ugly echo "" hack is to avoid complaints about 0 being an invalid file
   # descriptor - see https://github.com/commercialhaskell/stack/blob/e1605b888953124737ecff1dae3c790fd2a537c6/appveyor.yml
-  - echo "" | stack install cabal-install
-  - set PATH=%PATH%;C:\Users\appveyor\AppData\Local\Programs\stack\i386-windows\ghc-7.10.2\bin
-  - set PATH=%PATH%;C:\Users\appveyor\AppData\Roaming\local\bin
-  - cabal update
-  - ps: Install-Product node $env:nodejs_version
+  - echo "" | stack install elm-compiler elm-package elm-make elm-repl elm-reactor
+  - dir
   - ps: Update-NodeJsInstallation (Get-NodeJsLatestBuild $env:nodejs_version) $env:Platform
   - node --version
   - npm --version
@@ -50,8 +46,8 @@ install:
 test_script:
   - cd Elm-Platform\*
   - mkdir dist_binaries
-  - cp .cabal-sandbox\bin\elm* dist_binaries
+  - cp .stack-work\bin\elm* dist_binaries
   - tar cvzf binaries.tar.gz dist_binaries
-  - curl -T binaries.tar.gz -uelmtravis:$BINTRAY_API_KEY https://api.bintray.com/content/elmlang/elm-platform/npm/$ELM_VERSION/$ELM_VERSION/linux-x64.tar.gz
+  - ps: curl -T binaries.tar.gz -uelmappveyor:$env:BINTRAY_API_KEY https://api.bintray.com/content/elmlang/elm-platform/npm/$env:ELM_VERSION/$env:ELM_VERSION/win32-$env:Platform.tar.gz
 
 build: off
