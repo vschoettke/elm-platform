@@ -39,8 +39,7 @@ install:
   - node --version
   - npm --version
   - cd installers
-  - set GHC_PACKAGE_PATH=
-  - ..\stack runghc BuildFromSource.hs %ELM_VERSION%
+  - runghc BuildFromSource.hs %ELM_VERSION%
 
 test_script:
   - cd Elm-Platform\*
