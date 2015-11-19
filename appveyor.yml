@@ -19,10 +19,6 @@ install:
   - node --version
   - npm --version
   - cd c:\projects\elm-platform
-  - mkdir build_from_source
-  - copy versions\%ELM_VERSION%\stack.yaml build_from_source
-  - cd build_from_source
-  - dir
   - ps: >-
       If ($env:Platform -Match "x86") {
         $env:STACK_INSTALLER="x86_64"
@@ -35,13 +31,15 @@ install:
   - stack setup > nul
   # The ugly echo "" hack is to avoid complaints about 0 being an invalid file
   # descriptor - see https://github.com/commercialhaskell/stack/blob/e1605b888953124737ecff1dae3c790fd2a537c6/appveyor.yml
-  - echo "" | stack install elm-compiler elm-package elm-make elm-repl elm-reactor
-  - dir
+  - echo "" | stack install cabal-install
+  - set PATH=%PATH%;C:\Users\appveyor\AppData\Local\Programs\stack\i386-windows\ghc-7.10.2\bin
+  - set PATH=%PATH%;C:\Users\appveyor\AppData\Roaming\local\bin
+  - cabal update
   - ps: Update-NodeJsInstallation (Get-NodeJsLatestBuild $env:nodejs_version) $env:Platform
   - node --version
   - npm --version
   - cd installers
-  - runhaskell BuildFromSource.hs 0.15.1
+  - runhaskell BuildFromSource.hs %ELM_VERSION%
 
 test_script:
   - cd Elm-Platform\*
