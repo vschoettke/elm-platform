@@ -45,7 +45,7 @@ install:
 test_script:
   - cd Elm-Platform\*
   - mkdir dist_binaries
-  - cp .cabal-sandbox\bin\elm* dist_binaries
+  - cp .cabal-sandbox/bin/elm* dist_binaries
   - tar cvzf binaries.tar.gz dist_binaries
   - ps: curl -T binaries.tar.gz -uelmappveyor:$env:BINTRAY_API_KEY https://api.bintray.com/content/elmlang/elm-platform/npm/$env:ELM_VERSION/$env:ELM_VERSION/win32-$env:Platform.tar.gz
 
