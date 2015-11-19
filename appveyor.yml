@@ -32,6 +32,8 @@ install:
   # The ugly echo "" hack is to avoid complaints about 0 being an invalid file
   # descriptor - see https://github.com/commercialhaskell/stack/blob/e1605b888953124737ecff1dae3c790fd2a537c6/appveyor.yml
   - echo "" | stack install cabal-install
+  - set PATH=%PATH%;C:\Users\appveyor\AppData\Local\Programs\stack\i386-windows\ghc-7.10.2\bin
+  - set PATH=%PATH%;C:\Users\appveyor\AppData\Roaming\local\bin
   - cabal update
   - ps: Update-NodeJsInstallation (Get-NodeJsLatestBuild $env:nodejs_version) $env:Platform
   - node --version
