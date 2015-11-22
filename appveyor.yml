@@ -39,7 +39,7 @@ install:
   - node --version
   - npm --version
   - cd installers
-  - runghc BuildFromSource.hs %ELM_VERSION%
+  - cabal run BuildFromSource.hs %ELM_VERSION%
 
 test_script:
   - cd Elm-Platform\*
