@@ -24,8 +24,10 @@ install:
   - ps: >-
       If ($env:Platform -Match "x86") {
         $env:STACK_INSTALLER="x86_64"
+        $env:NODE_ARCH="x64"
       } Else {
         $env:STACK_INSTALLER="i386"
+        $env:NODE_ARCH="ia32"
       }
   - curl -s -ostack.zip -L --insecure http://www.stackage.org/stack/windows-%STACK_INSTALLER%
   - 7z x stack.zip stack.exe
@@ -49,6 +51,6 @@ test_script:
   - mkdir dist_binaries
   - cp .cabal-sandbox/bin/elm* dist_binaries
   - tar cvzf binaries.tar.gz dist_binaries
-  - ps: curl -T binaries.tar.gz -uelmappveyor:$env:BINTRAY_API_KEY https://api.bintray.com/content/elmlang/elm-platform/npm/$env:ELM_VERSION/$env:ELM_VERSION/win32-$env:Platform.tar.gz
+  - ps: curl -T binaries.tar.gz -uelmappveyor:$env:BINTRAY_API_KEY https://api.bintray.com/content/elmlang/elm-platform/npm/$env:ELM_VERSION/$env:ELM_VERSION/win32-$env:NODE_ARCH.tar.gz
 
 build: off
