@@ -18,8 +18,6 @@ matrix:
   fast_finish: true
 
 install:
-  - node --version
-  - npm --version
   - cd c:\projects\elm-platform
   - ps: >-
       If ($env:Platform -Match "x86") {
@@ -40,7 +38,7 @@ install:
   - set PATH=%PATH%;C:\Users\appveyor\AppData\Local\Programs\stack\%STACK_INSTALLER%-windows\ghc-7.10.2\bin
   - set PATH=%PATH%;C:\Users\appveyor\AppData\Roaming\local\bin
   - cabal update
-  - cabal install network --configure-option --build=i386-unknown-mingw32 --configure-option --host=i686-pc-mingw32
+  - C:\msys64\usr\bin\bash -lc "cabal install network --configure-option --build=i386-unknown-mingw32 --configure-option --host=i686-pc-mingw32"
   - ps: Update-NodeJsInstallation (Get-NodeJsLatestBuild $env:nodejs_version) $env:Platform
   - node --version
   - npm --version
