@@ -2,6 +2,8 @@
 clone_folder: c:\projects\elm-platform
 
 environment:
+  BINTRAY_API_KEY:
+    secure: of65XbPUI1IAQiXsonYx+swZ3tHZq5cRn51E5ziB7vvqKo7t1CQSmwQX1X5EjN3t
   matrix:
   - nodejs_version: "5.0"
     ELM_VERSION: "0.15.1"
