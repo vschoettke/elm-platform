@@ -18,6 +18,8 @@ matrix:
   fast_finish: true
 
 install:
+  - dir C:\cygwin
+  - C:\cygwin\Cygwin.bat
   - node --version
   - npm --version
   - cd c:\projects\elm-platform
